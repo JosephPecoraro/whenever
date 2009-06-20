@@ -2,10 +2,10 @@
 
 Gem::Specification.new do |s|
   s.name = %q{whenever}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Javan Makhmali"]
+  s.authors = ["Javan Makhmali", "Joseph Pecoraro"]
   s.date = %q{2009-06-02}
   s.description = %q{Provides clean ruby syntax for defining messy cron jobs and running them Whenever.}
   s.email = %q{javan@javan.us}
