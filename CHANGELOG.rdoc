@@ -1,3 +1,11 @@
+== 0.3.2
+
+* Cleaned output
+
+== 0.3.1
+
+* Added :start and :desc ability
+
 == 0.3.0 / June 2nd, 2009
 
 * Added ability to set variables on the fly from the command line (ex: whenever --set environment=staging). [Javan Makhmali]
