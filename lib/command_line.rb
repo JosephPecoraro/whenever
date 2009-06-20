@@ -40,7 +40,7 @@ module Whenever
     end
   
     def whenever_cron
-      @whenever_cron ||= [comment_open, Whenever.cron(@options), comment_close].join("\n")
+      @whenever_cron ||= [comment_open, "\n\n", Whenever.cron(@options), comment_open].join
     end
     
     def read_crontab
