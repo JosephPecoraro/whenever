@@ -5,14 +5,15 @@ module Whenever
 
       attr_accessor :time, :task
 
-      def initialize(time = nil, task = nil, at = nil)
-        @time = time
-        @task = task
-        @at   = at.is_a?(String) ? (Chronic.parse(at) || 0) : (at || 0)
+      def initialize(time = nil, task = nil, at = nil, start = nil)
+        @time  = time
+        @task  = task
+        @at    = at.is_a?(String) ? (Chronic.parse(at) || 0) : (at || 0)
+        @start = start
       end
 
       def self.output(time, job)
-        out = new(time, job.output, job.at)
+        out = new(time, job.output, job.at, job.start)
         "#{out.time_in_cron_syntax} #{out.task}"
       end
 
@@ -55,11 +56,11 @@ module Whenever
             raise ArgumentError, "Time must be in minutes or higher"
           when 1.minute...1.hour
             minute_frequency = @time / 60
-            timing[0] = comma_separated_timing(minute_frequency, 59)
+            timing[0] = comma_separated_timing(minute_frequency, 59, @start)
           when 1.hour...1.day
             hour_frequency = (@time / 60 / 60).round
             timing[0] = @at.is_a?(Time) ? @at.min : @at
-            timing[1] = comma_separated_timing(hour_frequency, 23)
+            timing[1] = comma_separated_timing(hour_frequency, 23, @start)
           when 1.day...1.month
             day_frequency = (@time / 24 / 60 / 60).round
             timing[0] = @at.is_a?(Time) ? @at.min  : 0
@@ -100,6 +101,7 @@ module Whenever
         return '*'       if frequency == 1
         return frequency if frequency > (max * 0.5).ceil
 
+        start = 0 if start.nil?
         original_start = start
 
         start += frequency unless (max + 1).modulo(frequency).zero? || start > 0
