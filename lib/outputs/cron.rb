@@ -5,16 +5,17 @@ module Whenever
 
       attr_accessor :time, :task
 
-      def initialize(time = nil, task = nil, at = nil, start = nil)
+      def initialize(time = nil, task = nil, at = nil, start = nil, desc = nil)
         @time  = time
         @task  = task
         @at    = at.is_a?(String) ? (Chronic.parse(at) || 0) : (at || 0)
         @start = start
+        @desc  = desc
       end
 
       def self.output(time, job)
-        out = new(time, job.output, job.at, job.start)
-        "#{out.time_in_cron_syntax} #{out.task}"
+        out = new(time, job.output, job.at, job.start, job.desc)
+        "#{out.description}#{out.time_in_cron_syntax} #{out.task}"
       end
 
       def time_in_cron_syntax
@@ -23,6 +24,10 @@ module Whenever
           when String then parse_as_string
           else parse_time
         end
+      end
+
+      def description
+        @desc.nil? ? '' : @desc.gsub(/^/, '# ') + "\n"
       end
 
     protected

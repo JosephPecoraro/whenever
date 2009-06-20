@@ -2,12 +2,13 @@ module Whenever
   module Job
     class Default
       
-      attr_accessor :task, :at, :start, :cron_log
+      attr_accessor :task, :at, :start, :desc, :cron_log
     
       def initialize(options = {})
         @task        = options[:task]
         @at          = options[:at]
         @start       = options[:start]
+        @desc        = options[:desc]
         @cron_log    = options[:cron_log]
         @environment = options[:environment] || :production
         @path        = options[:path] || Whenever.path
