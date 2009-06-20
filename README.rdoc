@@ -9,7 +9,10 @@ Ryan Bates created a great Railscast about Whenever: http://railscasts.com/episo
 Regular (non-Rails) install:
   
   $ gem sources -a http://gems.github.com  #you only need to run this once
-  $ sudo gem install javan-whenever
+  $ sudo gem install JosephPecoraro-whenever
+
+    
+Note, this was forked from the `javan-whenever` gem.
 
 In a Rails (2.1 or greater) application:
   
